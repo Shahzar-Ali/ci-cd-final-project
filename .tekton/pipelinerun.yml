@@ -1,0 +1,16 @@
+apiVersion: tekton.dev/v1beta1
+kind: PipelineRun
+metadata:
+  name: oc-pipelines-oc-green
+spec:
+  pipelineRef:
+    name: ci-cd-pipeline
+  workspaces:
+    - name: source             # must match the workspace name in pipeline and tasks
+      persistentVolumeClaim:
+        claimName: oc-lab-pvc
+  params:
+    - name: app-name
+      value: my-app
+    - name: build-image
+      value: my-app-image:latest
